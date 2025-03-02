@@ -15,25 +15,22 @@ def guess_the_number(random_number: int = 1) -> int:
     # the maximum value divided in half
     
     minimum_value = 1
-    maximum_value = 100
+    maximum_value = 101
     count = 0
        
     while True:
         count += 1
-        predict = (minimum_value+maximum_value) // 2
-        if predict < random_number:
+        predict = np.random.randint(minimum_value, maximum_value)
+        if predict == random_number:
+            break
+        elif predict < random_number:
             minimum_value = predict
         elif predict > random_number:
             maximum_value = predict
-        elif predict == random_number:
-            break
             
     return count
 
-random_number = np.random.randint(1, 101)
-print(guess_the_number(random_number))
-
-def score_game(random_predict) -> int:
+def score_game(guess_the_number) -> int:
     """За какое количество попыток в среднем за 10000 подходов угадывает наш алгоритм
 
     Args:
@@ -43,11 +40,14 @@ def score_game(random_predict) -> int:
         int: среднее количество попыток
     """
     count_ls = []
-    #np.random.seed(1)  # фиксируем сид для воспроизводимости
+    np.random.seed(1)  # фиксируем сид для воспроизводимости
     random_array = np.random.randint(1, 101, size=(10000))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(random_predict(number))
+        count_ls.append(guess_the_number(number))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за: {score} попытки")
+    
+print('Run benchmarking for guess_the_number: ', end='')
+score_game(guess_the_number)
