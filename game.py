@@ -9,10 +9,9 @@ def guess_the_number(random_number: int = 1) -> int:
 
        int: Number of attempts
     """
-    # For guessing, we use the following algorithm: 
-    # we will divide our guessing range by 2 at each iteration. 
-    # Accordingly, the assumption will be equal to the minimum value of the range plus 
-    # the maximum value divided in half
+    # To guess, we use the following algorithm: 
+    # we will reduce the limit of values depending on whether the 
+    # number is smaller or larger.
     
     minimum_value = 1
     maximum_value = 101
